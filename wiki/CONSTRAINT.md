@@ -72,3 +72,117 @@ En el caso de que la llave primaria contenga dos columnas:
 ```sql
 SQL Error [19]: [SQLITE_CONSTRAINT_PRIMARYKEY]  A PRIMARY KEY constraint failed (UNIQUE constraint failed: tabla.columna1, tabla.columna2)
 ```
+
+## 3. UNIQUE (único)
+
+Si una columna tiene la restriccion UNIQUE, entonces no puede tener valores repetidos.
+
+### Ejemplo:
+
+```sql
+CREATE TABLE tabla (
+    columna1 INTEGER UNIQUE
+);
+```
+
+### Insertar un valor en la tabla
+
+```sql
+INSERT INTO tabla (columna1) VALUES (1);
+INSERT INTO tabla (columna1) VALUES (1);
+```
+
+### Resultado
+
+```sql
+SQL Error [19]: [SQLITE_CONSTRAINT_UNIQUE]  A UNIQUE constraint failed (UNIQUE constraint failed: tabla.columna1)
+```
+
+## 4. DEFAULT (por defecto)
+
+Esta restricción permite establecer un valor por defecto para una columna, si no se inserta ningun valor en la columna durante la insercion de una fila el valor predeterminado sera el valor establecido.
+
+### Ejemplo:
+
+```sql
+CREATE TABLE tabla (
+    columna1 integer DEFAULT 1,
+    columna2 integer
+);
+```
+
+### Insertar un valor en la tabla
+
+```sql
+INSERT INTO tabla (columna2) VALUES (10);
+SELECT * FROM tabla;
+```
+
+### Resultado
+
+```sql
+columna1 | columna2
+1|10
+```
+
+
+## 5. INDEX (indice)
+
+La restriccion INDEX permite crear un indice para una o varias columnas de una tabla, esto permite una busqueda más rapida de valores en la tabla, adema de una mejor rendimiento, ya que no se tienen que recorrer todas las filas de la tabla para buscar un valor.
+
+Una restriccion INDEX puede ser de dos tipos:
+
+1. UNIQUE INDEX (indice único) Permite crear un indice único para una o varias columnas de una tabla, mientras mejora el rendimiento de la tabla.
+
+2. INDEX (indice) Permite crear un indice para una o varias columnas de una tabla, esto permite una busqueda más rapida de valores en la tabla, además de un mejor rendimiento, ya que no se tienen que recorrer todas las filas de la tabla para buscar un valor.
+
+
+### Ejemplo 1: **INDEX**
+
+```sql
+CREATE TABLE tabla (
+    columna1 integer,
+    columna2 integer
+);
+
+CREATE INDEX tabla_index ON tabla (columna1, columna2);
+```
+
+### Insertar un valor en la tabla
+
+```sql
+INSERT INTO tabla (columna1, columna2) VALUES (1, 2);
+INSERT INTO tabla (columna1, columna2) VALUES (1, 2);
+```
+
+### Resultado
+
+```sql
+columna1 | columna2
+1|2
+1|2
+```
+
+### Ejemplo 2 : **INDEX UNIQUE**
+
+```sql
+CREATE TABLE tabla (
+    columna1 integer,
+    columna2 integer
+);
+
+CREATE UNIQUE INDEX tabla_index ON tabla (columna1, columna2);
+```
+
+### Insertar un valor en la tabla
+
+```sql
+INSERT INTO tabla (columna1, columna2) VALUES (1, 2);
+INSERT INTO tabla (columna1, columna2) VALUES (1, 2);
+```
+
+### Resultado
+
+```sql
+Error while executing SQL query on database 'prueba': UNIQUE constraint failed: tabla.columna1, tabla.columna2
+```
