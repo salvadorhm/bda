@@ -1,0 +1,11 @@
+id_producto,producto,categoria,precio_unitario,existencias,unidad
+1,Producto 1,congelados,10,10,caja
+2,Producto 2,vinos y licores,20,20,caja
+3,Producto 3,blancos,30,30,pieza
+4,Producto 4,vinos y licores,40,40,pieza
+5,Producto 5,congelados,50,50,pieza
+6,Producto 6,blancos,60,60,pieza
+7,Producto 7,congelados,70,70,pieza
+8,Producto 8,vinos y licores,80,80,caja
+9,Producto 9,vinos y licores,90,90,caja
+10,Producto 10,blancos,100,100,caja
